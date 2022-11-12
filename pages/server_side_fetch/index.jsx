@@ -4,7 +4,8 @@ import Head from 'next/head';
 import Menu from '../../components/menu';
 import { fetchPosts } from '../../lib/posts';
 
-export async function getStaticProps() {
+export async function getServerSideProps(context) {
+
    const data = await fetchPosts();
    if (!data?.error) {
       return {
@@ -20,20 +21,20 @@ export async function getStaticProps() {
       }
    }
  }
-export default function FetchPage({ data }) {
-
+export default function FetchPage(props) {
+   const { data } = props;
    return (
       <>
          <Head>
-            <title>Static Generation Page</title>
-            <meta name="description" content="Static Generation Page" />
+            <title>SSR fetch Page</title>
+            <meta name="description" content="SSR fetch Page" />
             <link rel="icon" href="/favicon.ico" />
          </Head>
          <header>
             <Menu />
          </header>
          <main className={s.main}>
-            <div className={s.title}>The fetch page</div>
+            <div className={s.title}>The SSR fetch page</div>
             <div className={s.post_container}>
             {data?.map((item) => {
                   return (

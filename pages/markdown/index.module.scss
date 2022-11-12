@@ -11,3 +11,27 @@
 
    }
 }
+.post_container {
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   margin-top: 20px;
+   width: 60%;
+   .post_item {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      font-size: 24px;
+      height: 50px;
+      .post_item_id {
+         width: 10%;
+      }
+      .post_item_title {
+         width: 75%;
+      }
+      .post_item_date {
+         width: 15%;
+      }
+   }
+}

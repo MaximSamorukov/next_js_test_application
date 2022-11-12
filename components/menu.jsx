@@ -7,12 +7,22 @@ export default function Menu() {
          <ul>
             <li>
                <Link href={"/markdown"}>
-                  Static gen from .md
+                  SSR static .md
                </Link>
             </li>
             <li>
                <Link href={"/fetch"}>
-                  Static gen from fetch
+                  SSR static fetch
+               </Link>
+            </li>
+            <li>
+               <Link href={"/server_side_fetch"}>
+                  SSR fetch
+               </Link>
+            </li>
+            <li>
+               <Link href={"/client_side_fetch"}>
+                  CSR fetch
                </Link>
             </li>
          </ul>

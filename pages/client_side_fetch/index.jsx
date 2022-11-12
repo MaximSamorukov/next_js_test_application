@@ -2,38 +2,25 @@ import Link from 'next/link';
 import s from './index.module.scss';
 import Head from 'next/head';
 import Menu from '../../components/menu';
-import { fetchPosts } from '../../lib/posts';
+import useSWR from 'swr';
 
-export async function getStaticProps() {
-   const data = await fetchPosts();
-   if (!data?.error) {
-      return {
-        props: {
-         data,
-        },
-      };
-   } else {
-      return {
-         props: {
-            data: { error: data.error },
-         }
-      }
-   }
- }
-export default function FetchPage({ data }) {
+export default function FetchPage() {
+   const fetcher = (...args) => fetch(...args).then(res => res.json())
+   const url = 'https://jsonplaceholder.typicode.com/posts';
+   const { data, error } = useSWR(url, fetcher);
 
    return (
       <>
          <Head>
-            <title>Static Generation Page</title>
-            <meta name="description" content="Static Generation Page" />
+            <title>CSR fetch Page</title>
+            <meta name="description" content="CSR fetch Page" />
             <link rel="icon" href="/favicon.ico" />
          </Head>
          <header>
             <Menu />
          </header>
          <main className={s.main}>
-            <div className={s.title}>The fetch page</div>
+            <div className={s.title}>The CSR fetch page</div>
             <div className={s.post_container}>
             {data?.map((item) => {
                   return (

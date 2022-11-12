@@ -2,18 +2,18 @@ import Link from 'next/link';
 import s from './index.module.scss';
 import Menu from '../../components/menu';
 import Head from 'next/head';
+import { getSortedPostsData } from '../../lib/posts';
 
-export async function getStaticProps(props) {
-   console.log(props);
+export async function getStaticProps() {
+   const data = await getSortedPostsData();
    return {
      props: {
-      data: 'props',
+      data,
      },
    };
  }
 
-export default function MarkdownPage(props) {
-   console.log(props);
+export default function MarkdownPage({ data }) {
    return (
       <>
          <Head>
@@ -26,6 +26,17 @@ export default function MarkdownPage(props) {
          </header>
          <main className={s.main}>
             <div className={s.title}>The markdown page</div>
+            <div className={s.post_container}>
+               {data?.map((item) => {
+                  return (
+                     <div key={item.id} className={s.post_item}>
+                        <div className={s.post_item_id}>{item.id}</div>
+                        <div className={s.post_item_title}>{item.title}</div>
+                        <div className={s.post_item_date}>{item.date}</div>
+                     </div>
+                  );
+               })}
+            </div>
             <Link href="/">
                <p className={s.link}>
                   Back to the Main page
