@@ -28,12 +28,15 @@ export default function MarkdownPage({ data }) {
             <div className={s.title}>The markdown page</div>
             <div className={s.post_container}>
                {data?.map((item) => {
+                  const link = "/markdown/:id".replace(':id', item.id);
                   return (
-                     <div key={item.id} className={s.post_item}>
-                        <div className={s.post_item_id}>{item.id}</div>
-                        <div className={s.post_item_title}>{item.title}</div>
-                        <div className={s.post_item_date}>{item.date}</div>
-                     </div>
+                     <Link key={item.id} href={link}>
+                        <div className={s.post_item}>
+                           <div className={s.post_item_id}>{item.id}</div>
+                           <div className={s.post_item_title}>{item.title}</div>
+                           <div className={s.post_item_date}>{item.date}</div>
+                        </div>
+                     </Link>
                   );
                })}
             </div>

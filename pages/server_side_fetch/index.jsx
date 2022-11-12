@@ -37,6 +37,8 @@ export default function FetchPage(props) {
             <div className={s.title}>The SSR fetch page</div>
             <div className={s.post_container}>
             {data?.map((item) => {
+                  const link = "/server_side_fetch/:id".replace(':id', item.id);
+
                   return (
                      <div key={item.id} className={s.post_item}>
                         <div className={s.post_item_header}>
