@@ -20,7 +20,7 @@ export async function getStaticPaths(props) {
 
    return {
       paths,
-      fallback: true,
+      fallback: false,
    };
 }
 
