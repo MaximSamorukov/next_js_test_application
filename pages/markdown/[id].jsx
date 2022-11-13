@@ -2,7 +2,7 @@ import Link from 'next/link';
 import s from './index.module.scss';
 import Head from 'next/head';
 import Menu from '../../components/menu';
-import { getSortedPostsData } from '../../lib/posts';
+import { getSortedPostsData, getStaticPathsFn } from '../../lib/posts';
 
 export async function getStaticProps({ params }) {
 
@@ -15,13 +15,11 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths(props) {
+   const pathsNotRevised = await getStaticPathsFn();
+   const paths = pathsNotRevised.map(({ id }) => ({ params: { id }}))
 
    return {
-      paths: [{
-         params: {
-            id: 'string',
-         }
-      }],
+      paths,
       fallback: true,
    };
 }
