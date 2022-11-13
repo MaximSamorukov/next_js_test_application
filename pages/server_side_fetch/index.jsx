@@ -7,19 +7,12 @@ import { fetchPosts } from '../../lib/posts';
 export async function getServerSideProps(context) {
 
    const data = await fetchPosts();
-   if (!data?.error) {
-      return {
-        props: {
-         data,
-        },
-      };
-   } else {
-      return {
-         props: {
-            data: { error: data.error },
-         }
-      }
-   }
+   return {
+      props: {
+      data,
+      },
+      notFound: data?.notFound,
+   };
  }
 export default function FetchPage(props) {
    const { data } = props;
@@ -40,15 +33,17 @@ export default function FetchPage(props) {
                   const link = "/server_side_fetch/:id".replace(':id', item.id);
 
                   return (
-                     <div key={item.id} className={s.post_item}>
-                        <div className={s.post_item_header}>
-                           <div className={s.post_item_header_id}>{item.id}</div>
-                           <div className={s.post_item_header_title}>{item.title}</div>
+                     <Link key={item.id} href={link}>
+                        <div className={s.post_item}>
+                           <div className={s.post_item_header}>
+                              <div className={s.post_item_header_id}>{item.id}</div>
+                              <div className={s.post_item_header_title}>{item.title}</div>
+                           </div>
+                           <div className={s.post_item_body}>
+                              {item.body}
+                           </div>
                         </div>
-                        <div className={s.post_item_body}>
-                           {item.body}
-                        </div>
-                     </div>
+                     </Link>
                   );
                })}
             </div>
