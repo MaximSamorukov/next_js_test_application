@@ -4,17 +4,17 @@ import Head from 'next/head';
 import Menu from '../../components/menu';
 import { getSortedPostsData } from '../../lib/posts';
 
-
 export async function getStaticProps({ params }) {
+
    const data = await getSortedPostsData(params?.id);
    return {
      props: {
-      data,
+        data,
      },
    };
- }
+}
 
- export async function getStaticPaths(props) {
+export async function getStaticPaths(props) {
 
    return {
       paths: [{
@@ -24,10 +24,10 @@ export async function getStaticProps({ params }) {
       }],
       fallback: true,
    };
- }
+}
 
 export default function PostPage({ data }, other) {
-   console.log(data);
+
    return (
       <>
          <Head>
@@ -38,8 +38,13 @@ export default function PostPage({ data }, other) {
          <header>
             <Menu />
          </header>
-         <main>
-            <div>Post id: {data?.id}</div>
+         <main className={s.main_post}>
+            <div className={s.title}>
+               <div className={s.title}>{data?.meta?.title}</div>
+            </div>
+            <div className={s.post}>
+               <div dangerouslySetInnerHTML={{__html: data?.content}} />
+            </div>
             <Link href="/markdown">
                <p className={s.link}>
                   Back to the List page
