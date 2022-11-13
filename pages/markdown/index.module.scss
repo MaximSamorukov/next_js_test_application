@@ -42,15 +42,18 @@
       flex-direction: row;
       justify-content: space-around;
       font-size: 24px;
-      height: 50px;
+      min-height: 50px;
+      height: fit-content;
       .post_item_id {
          width: 10%;
+         min-width: 80px;
       }
       .post_item_title {
          width: 75%;
       }
       .post_item_date {
          width: 15%;
+         min-width: 140px;
       }
    }
 }
